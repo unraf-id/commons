@@ -26,6 +26,7 @@ ARG artifactory_url
 
 # environment variable to pass active profile such as DEV, QA etc at docker runtime
 ENV active_profile_env=${active_profile}
+ENV kernel_jar_path=${base_path}/libs-release-local/io/mosip/kernel
 
 # environment variable to pass github branch to pickup configuration from, at docker runtime
 ENV spring_config_label_env=${spring_config_label}
@@ -69,7 +70,7 @@ RUN mkdir -p ${loader_path}
 ENV loader_path_env=${loader_path}
 
 COPY ./target/kernel-notification-service-*.jar kernel-notification-service.jar
-
+COPY /src/sms/* ${kernel_jar_path}/
 #RUN mkdir ./mosip-lib/
 
 # change permissions of file inside working dir
